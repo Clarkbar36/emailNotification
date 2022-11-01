@@ -19,7 +19,7 @@ except Exception as e:
 try:  # wrap all code in a try: statement
 
     # Assign a numeric value
-    number = 75  # change to '75' for failure test
+    number = '75'  # change to '75' for failure test
 
     # Check the is more than 70 or not
     number >= 70

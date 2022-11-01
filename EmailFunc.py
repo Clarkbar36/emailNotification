@@ -19,22 +19,23 @@ def sendemail(section: str, *tb: str):
     # email address, it's associated with SendGrid
     from_email = Email("Healthlab_Software_Team@URMC.Rochester.edu")
 
+    # parse email addresses from config file
     emails = config[section]['to_email']
     to_email = []
     for em in emails.split(","):
         make_to = To(em)
         to_email.append(make_to)
 
-    # subject of the email
+    # subject of the email from config file
     subject = config[section]['subject']
 
-    # message to be sent upon successful run
+    # message to be sent upon successful run from config file
     success_body = config[section]['success_body']
 
-    # message to be sent upon failed run
+    # message to be sent upon failed run from config file
     failure_body = config[section]['failure_body']
 
-    # This will include the error message in your email, no need to touch
+    # This will include the error message in your email
     if len(tb) == 0:
         content = Content("text/plain", success_body)
     else:
