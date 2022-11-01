@@ -1,30 +1,38 @@
+import configparser  # Load in library to read API Key from Config file
 import sendgrid
 from sendgrid.helpers.mail import Mail, Email, To, Content
 from http.client import responses
 
 
-def sendemail(api_key, *tb: str):
+def sendemail(section: str, *tb: str):
+    config = configparser.ConfigParser()  # load parser
+    # ensure config exists and can be opened, if not, it will throw an error
+    try:
+        with open('config.ini') as f:
+            config.read_file(f)
+    except IOError:
+        print("config.ini not found.")
+        quit()
 
-    ############### User Update ###################################################
-    # Must use this email address, as it's associated with SendGrid
-    from_email = Email(
-        "Healthlab_Software_Team@URMC.Rochester.edu")
+    api_key = config[section]['key']
 
-    # Change to your recipient(s)
-    to_email = [To("email_address2@domain.com")
-                # ,To("email_address2@domain.com")
-                # ,To("email_address3@domain.com")
-                ]
+    # email address, it's associated with SendGrid
+    from_email = Email("Healthlab_Software_Team@URMC.Rochester.edu")
 
-    # Enter in the subject of the email, state which API/Job this is reporting on
-    subject = "This is a Test"
+    emails = config[section]['to_email']
+    to_email = []
+    for em in emails.split(","):
+        make_to = To(em)
+        to_email.append(make_to)
 
-    # Enter message to be sent upon successful run
-    success_body = "We did it!"
+    # subject of the email
+    subject = config[section]['subject']
 
-    # Enter message to be sent upon failed run
-    failure_body = "Job failed."
-    ################################################################################
+    # message to be sent upon successful run
+    success_body = config[section]['success_body']
+
+    # message to be sent upon failed run
+    failure_body = config[section]['failure_body']
 
     # This will include the error message in your email, no need to touch
     if len(tb) == 0:
