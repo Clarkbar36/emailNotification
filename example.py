@@ -10,11 +10,11 @@ try:  # wrap all code in a try: statement
     number >= 70
 
     # if successful send email, put at the end of code, when you are ready to send a success email
-    sendemail('SENDGRID1')
+    sendemail('Test1')
 
 # put this code after all of your other code, this will be used to catch errors and email out a failure
 except Exception as e:
-    sendemail('SENDGRID1', traceback.format_exc())
+    sendemail('Test1', traceback.format_exc())
 
 try:  # wrap all code in a try: statement
 
@@ -25,11 +25,11 @@ try:  # wrap all code in a try: statement
     number >= 70
 
     # if successful send email, put at the end of code, when you are ready to send a success email
-    sendemail('SENDGRID2')
+    sendemail('Test2')
 
 # put this code after all of your other code, this will be used to catch errors and email out a failure
 except Exception as e:
-    sendemail('SENDGRID2', traceback.format_exc())
+    sendemail('Test2', traceback.format_exc())
 
 
 

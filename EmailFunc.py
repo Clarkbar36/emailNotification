@@ -5,6 +5,8 @@ from http.client import responses
 
 
 def sendemail(section: str, *tb: str):
+
+    section = section.upper()
     config = configparser.ConfigParser()  # load parser
     # ensure config exists and can be opened, if not, it will throw an error
     try:
